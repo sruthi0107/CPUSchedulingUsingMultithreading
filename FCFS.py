@@ -2,8 +2,8 @@ import tkinter as tk
 import numpy as np
 import pygame
 import time
-def findWaitingTime_FCFS(processes, n,
-                    bt, wt):
+
+def findWaitingTime_FCFS(processes, n, bt, wt):
     pygame.init()
     screen = pygame.display.set_mode((350, 350))
     clock = pygame.time.Clock()
@@ -25,24 +25,18 @@ def findWaitingTime_FCFS(processes, n,
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
-def findTurnAroundTime_FCFS(processes, n, 
-                       bt, wt, tat):
+
+def findTurnAroundTime_FCFS(processes, n, bt, wt, tat):
     for i in range(n):
         tat[i] = bt[i] + wt[i]
 
-    #print(string)
-    #return string
-
-
-def findavgTime_FCFS( processes, n, bt):
-  
+def FCFS( processes, n, bt):
     wt = [0] * n
     tat = [0] * n 
     total_wt = 0
     total_tat = 0
     findWaitingTime_FCFS(processes, n, bt, wt)
-    findTurnAroundTime_FCFS(processes, n, 
-                       bt, wt, tat)
+    findTurnAroundTime_FCFS(processes, n, bt, wt, tat)
     '''
     print( "Processes Burst time " + 
                   " Waiting time " + 
@@ -67,10 +61,9 @@ def findavgTime_FCFS( processes, n, bt):
     root=tk.Tk()
     string="Processes Burst time " + " Waiting time " + " Turn around time"
     tk.Label(root, text=string).pack()
-    # Calculate total waiting time 
-    # and total turn around time
     for i in range(n):
         string=""
+        # Calculate total waiting time and total turn around time
         total_wt = total_wt + wt[i]
         total_tat = total_tat + tat[i]
         string+=" " + str(i + 1) + "\t" + \
@@ -79,15 +72,13 @@ def findavgTime_FCFS( processes, n, bt):
                     str(tat[i]) 
         tk.Label(root,text=string).pack()
     
-    #print( )
     tk.Label(root,text="Average waiting time = "+str(total_wt / n)).pack()
-    #print()
     tk.Label(root,text="Average turn around time = "+str(total_tat / n)).pack()
     root.mainloop()
   
 # Driver code
 if __name__ =="__main__":
-    processes = [ 1, 2, 3,4]
+    processes = [ 1, 2, 3, 4]
     n = len(processes)
-    burst_time = [3, 8, 4,6]
-    findavgTime_FCFS(processes, n, burst_time)
+    burst_time = [3, 8, 4, 6]
+    FCFS(processes, n, burst_time)
