@@ -2,7 +2,8 @@ import pygame
 import tkinter as tk
 import time
 def SJF(processes,n,bt):
-    for i in range(0,n-1):  #applying bubble sort to sort process according to their burst time
+    #Applying bubble sort to sort process according to their burst time
+    for i in range(0,n-1): 
         for j in range(0,n-i-1):
             if(bt[j]>bt[j+1]):
                 temp=bt[j]
@@ -11,11 +12,15 @@ def SJF(processes,n,bt):
                 temp=processes[j]
                 processes[j]=processes[j+1]
                 processes[j+1]=temp
-    wt,tat=[],[]   #wt stands for waiting time
-    total_wt=0  #average of waiting time
-    total_tat=0   #average of total turnaround time
+    
+    #pygame-gantt chart
+    wt,tat=[],[] 
+    total_wt=0
+    total_tat=0
+
     wt.insert(0,0)
     tat.insert(0,bt[0])
+
     pygame.init()
     screen = pygame.display.set_mode((350, 350))
     clock = pygame.time.Clock()
@@ -36,13 +41,13 @@ def SJF(processes,n,bt):
                 if event.type == pygame.QUIT:
                     done = True
 
+    #Tkinter screen for printing details
     root=tk.Tk()
     string="Processes Burst time " + " Waiting time " + " Turn around time"
     tk.Label(root, text=string).pack()
-    # Calculate total waiting time 
-    # and total turn around time
     for i in range(n):
         string=""
+        # Calculate total waiting time and total turn around time
         total_wt = total_wt + wt[i]
         total_tat = total_tat + tat[i]
         string+=" "+ str(i + 1) + "\t" + \
@@ -51,12 +56,11 @@ def SJF(processes,n,bt):
                     str(tat[i]) 
         tk.Label(root,text=string).pack()
     
-    #print( )
     tk.Label(root,text="Average waiting time = "+str(total_wt / n)).pack()
-    #print()
     tk.Label(root,text="Average turn around time = "+str(total_tat / n)).pack()
     root.mainloop()
-  
+
+#Driver Code
 if __name__ =="__main__":
     processes = [ 1, 2, 3, 4]
     n = len(processes)
