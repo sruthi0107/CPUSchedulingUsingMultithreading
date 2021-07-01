@@ -1,33 +1,30 @@
-import threading
-from FCFS import findavgTime_FCFS,findTurnAroundTime_FCFS,findWaitingTime_FCFS
-from SJF import findavgTime_SJF,findTurnAroundTime_SJF,findWaitingTime_SJF
+#import threading
 import tkinter as tk
 import time
+import pygame
+import numpy as np
+from FCFS import fcfs, findTurnAroundTime_FCFS, findWaitingTime_FCFS
+from SJF import sjf
+from subprocess import *
 
-start = time.time()
-processes = [ 1, 2, 3]
+# Defining process Ids
+processes = [ 1, 2, 3, 4]
 n = len(processes)
 
 # Burst time of all processes
-burst_time = [10, 5, 8]
+burst_time = [3, 8, 4, 6]
 
-proc = [[1, 6, 1], [2, 8, 1],
-        [3, 7, 2], [4, 3, 3]]
-n1 = 4
+Popen('python FCFS.py')
+time.sleep(1)
+Popen('python SJF.py')
 
+'''
+t1 = threading.Thread(target=fcfs, args=(processes, n, burst_time,))
+t2 = threading.Thread(target=sjf,  args=(processes, n, burst_time,))
 
-t1 = threading.Thread(target=findavgTime_FCFS, args=(processes, n, burst_time,))
-t2 = threading.Thread(target=findavgTime_SJF, args=(proc,n1,))
+t1.start() #starting thread1
+t2.start() #starting thread2
 
-t1.start()
-# starting thread 2
-t2.start()
-
-# wait until thread 1 is completely executed
-t1.join()
-# wait until thread 2 is completely executed
-t2.join()
-
-end=time.time()
-# both threads completely executed
-print(f"Runtime of the program is {end - start}")
+t1.join()  # wait until thread 1 is completely executed
+t2.join()  # wait until thread 2 is completely executed
+'''
